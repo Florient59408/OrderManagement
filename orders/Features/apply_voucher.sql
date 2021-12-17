@@ -33,8 +33,8 @@ AS(
     SELECT pi.quantity, pi.order_number, pi.article_id
     FROM order_item oi    
     LEFT OUTER JOIN orders o ON TO_CHAR(o.order_date, 'DD-Month-YYYY') = TO_CHAR(SYSDATE, 'DD-Month-YYYY') AND o.order_number = oi.order_number
-    RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id AND pi.item_id = oi.item_id
-    WHERE oi.order_number = &order AND pi.item_id = oi.item_id),
+    RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id
+    WHERE oi.order_number = &order),
 cte2
 AS(
     SELECT  DISTINCT(oi.article_id),
@@ -52,7 +52,7 @@ AS(
     FROM order_item oi
     LEFT OUTER JOIN services s ON oi.service_id = s.service_id
     LEFT OUTER JOIN cte2 c2 ON c2.article_id = oi.article_id
-    WHERE oi.order_number = &order AND pi.item_id = oi.item_id AND pi.item_id = oi.item_id
+    WHERE oi.order_number = &order
 ),
 cte4
 AS(

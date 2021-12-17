@@ -28,7 +28,7 @@ prompt
 SELECT     
     oi.article_id "ARTICLE IDENTIFIER",
     (SELECT a.article_name FROM articles a WHERE a.article_id = oi. article_id ) "ARTICLE NAME",
-    (SELECT p.quantity FROM package_item p WHERE p.order_number = oi.order_number AND p.article_id = oi.article_id AND p.item_id = oi.item_id) "QUANTITY",
+    (SELECT p.quantity FROM package_item p WHERE p.order_number = oi.order_number AND p.article_id = oi.article_id) "QUANTITY",
     (SELECT
         DISTINCT(
             CASE WHEN EXISTS(SELECT price FROM list_price WHERE client_id = (SELECT client_id FROM orders WHERE order_number = &order) AND article_id= ooi.article_id )
@@ -49,7 +49,7 @@ SELECT
         ELSE s.amount  END
         FROM services s
         WHERE  s.service_id = oi.service_id), 0) "UNITARY PRICE",
-    (SELECT p.quantity FROM package_item p WHERE p.order_number = oi.order_number AND p.article_id = oi.article_id AND p.item_id = oi.item_id) * ((SELECT
+    (SELECT p.quantity FROM package_item p WHERE p.order_number = oi.order_number AND p.article_id = oi.article_id) * ((SELECT
         DISTINCT(
             CASE WHEN EXISTS(SELECT price FROM list_price WHERE client_id = (SELECT client_id FROM orders WHERE order_number = &order) AND article_id= ooi.article_id )
             THEN (SELECT price FROM list_price WHERE client_id = (SELECT client_id FROM orders WHERE order_number = &order) AND article_id= ooi.article_id )
@@ -84,7 +84,7 @@ AS(
     SELECT pi.quantity, pi.order_number, pi.article_id
     FROM order_item oi    
     LEFT OUTER JOIN orders o ON TO_CHAR(o.order_date, 'DD-Month-YYYY') = TO_CHAR(SYSDATE, 'DD-Month-YYYY') AND o.order_number = oi.order_number
-    RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id AND pi.item_id = oi.item_id
+    RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id
     WHERE oi.order_number = &order),
 cte2
 AS(

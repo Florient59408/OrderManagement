@@ -289,8 +289,7 @@ CREATE TABLE package_item
 (
 	order_number number,
 	article_id number,
-	item_id NUMBER
-	CONSTRAINT item_id_pac_ite_nn NOT NULL,
+	item_id NUMBER,
 	service_id VARCHAR2(25),
 	package_id NUMBER 
 	CONSTRAINT package_id_pac_ite_nn NOT NULL,

@@ -300,14 +300,13 @@ ADD (
 );
 
 
-
 CREATE UNIQUE INDEX pi_pk
-ON package_item(order_number, article_id, item_id, package_id);
+ON package_item(order_number, article_id, package_id);
 
 ALTER TABLE package_item
 ADD( 
 	CONSTRAINT pi_pk 
-	PRIMARY KEY (order_number, article_id, item_id, package_id),
+	PRIMARY KEY (order_number, article_id, package_id),
 	CONSTRAINT oi_pi_fK
 	FOREIGN KEY (order_number, article_id, item_id) REFERENCES order_item(order_number, article_id, item_id),
 	CONSTRAINT package_id_pac_ite_fk

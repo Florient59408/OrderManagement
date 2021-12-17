@@ -18,7 +18,7 @@ DEFINE client = &1
 prompt
 
 
-Prompt STORE IDENTIFIER:
+Prompt SOTRE IDENTIFIER:
 DEFINE store = &3
 prompt
 

@@ -47,5 +47,4 @@ DROP SEQUENCE user_id_seq;
 DROP SEQUENCE package_id_seq;
 DROP SEQUENCE sound_purchase_id_seq;
 
-
 COMMIT;

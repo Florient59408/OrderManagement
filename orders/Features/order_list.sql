@@ -29,8 +29,8 @@ o.billing_address "BILLING ADDRESS",
     SELECT pi.quantity, pi.order_number, pi.article_id
     FROM order_item oi    
     LEFT OUTER JOIN orders oo ON TO_CHAR(oo.order_date, 'DD-Month-YYYY') = TO_CHAR(SYSDATE, 'DD-Month-YYYY') AND oo.order_number = oi.order_number
-    RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id AND oi.item_id = pi.item_id
-    WHERE oi.order_number = o.order_number AND oi.item_id = pi.item_id
+    RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id
+    WHERE oi.order_number = o.order_number
     ) c1
     LEFT OUTER JOIN (
     SELECT oi.order_number, oi.article_id,
@@ -41,7 +41,7 @@ o.billing_address "BILLING ADDRESS",
     FROM order_item oi    
     LEFT OUTER JOIN orders oo ON TO_CHAR(oo.order_date, 'DD-Month-YYYY') = TO_CHAR(SYSDATE, 'DD-Month-YYYY') AND oo.order_number = oi.order_number
     RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id
-    WHERE oi.order_number = o.order_number AND oi.item_id = pi.item_id
+    WHERE oi.order_number = o.order_number
     ) c1 WHERE c1.order_number = oi.order_number AND c1.article_id = oi.article_id) service_price
     FROM order_item oi
     LEFT OUTER JOIN services s ON oi.service_id = s.service_id
@@ -70,8 +70,8 @@ o.billing_address "BILLING ADDRESS",
     SELECT pi.quantity, pi.order_number, pi.article_id
     FROM order_item oi    
     LEFT OUTER JOIN orders oo ON TO_CHAR(oo.order_date, 'DD-Month-YYYY') = TO_CHAR(SYSDATE, 'DD-Month-YYYY') AND oo.order_number = oi.order_number
-    RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id AND oi.item_id = pi.item_id
-    WHERE oi.order_number = o.order_number AND oi.item_id = pi.item_id
+    RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id
+    WHERE oi.order_number = o.order_number
     ) c1
     LEFT OUTER JOIN (
     SELECT oi.order_number, oi.article_id,
@@ -82,7 +82,7 @@ o.billing_address "BILLING ADDRESS",
     FROM order_item oi    
     LEFT OUTER JOIN orders oo ON TO_CHAR(oo.order_date, 'DD-Month-YYYY') = TO_CHAR(SYSDATE, 'DD-Month-YYYY') AND oo.order_number = oi.order_number
     RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id
-    WHERE oi.order_number = o.order_number AND oi.item_id = pi.item_id
+    WHERE oi.order_number = o.order_number
     ) c1 WHERE c1.order_number = oi.order_number AND c1.article_id = oi.article_id) service_price
     FROM order_item oi
     LEFT OUTER JOIN services s ON oi.service_id = s.service_id

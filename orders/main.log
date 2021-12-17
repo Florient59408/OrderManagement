@@ -1,37 +1,37 @@
 DROP USER ob CASCADE
-*
+          *
 ERREUR à la ligne 1 :
-ORA-01031: privilèges insuffisants
+ORA-01918: l'utilisateur 'OB' n'existe pas 
 
 
 CREATE USER ob IDENTIFIED BY ob
-*
+            *
 ERREUR à la ligne 1 :
-ORA-01031: privilèges insuffisants
+ORA-65096: nom utilisateur ou de rôle commun non valide 
 
 
 ALTER USER ob DEFAULT TABLESPACE users
-*
+           *
 ERREUR à la ligne 1 :
-ORA-01031: privilèges insuffisants
+ORA-01918: l'utilisateur 'OB' n'existe pas 
 
 
 ALTER USER ob TEMPORARY TABLESPACE temp
-*
+           *
 ERREUR à la ligne 1 :
-ORA-01031: privilèges insuffisants
+ORA-01918: l'utilisateur 'OB' n'existe pas 
 
 
 GRANT CREATE SESSION, CREATE VIEW, ALTER SESSION, CREATE SEQUENCE TO ob
-*
+                                                                     *
 ERREUR à la ligne 1 :
-ORA-01031: privilèges insuffisants
+ORA-01917: l'utilisateur ou le rôle 'OB' n'existe pas 
 
 
 GRANT CREATE SYNONYM, CREATE DATABASE LINK, RESOURCE , UNLIMITED TABLESPACE TO ob
-*
+                                                                               *
 ERREUR à la ligne 1 :
-ORA-01031: privilèges insuffisants
+ORA-01917: l'utilisateur ou le rôle 'OB' n'existe pas 
 
 
 Connecté.

@@ -16,8 +16,7 @@ SELECT
     DISTINCT(spc.sound_purchase_id) "SOUND PURCHASE NUMBER",
     ag.title "GROUP",
     a.article_name "ARTICLE",
-    spc.amount "CURRENT AMOUNT",
-    o.order_number
+    spc.amount "CURRENT AMOUNT"
 FROM orders o
 RIGHT OUTER JOIN order_item oi ON oi.order_number = o.order_number
 RIGHT OUTER JOIN articles a ON a.article_id = oi.article_id
@@ -37,7 +36,7 @@ AS(
     FROM order_item oi    
     LEFT OUTER JOIN orders o ON TO_CHAR(o.order_date, 'DD-Month-YYYY') = TO_CHAR(SYSDATE, 'DD-Month-YYYY') AND o.order_number = oi.order_number
     RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id
-    WHERE oi.order_number = &order AND pi.item_id = oi.item_id),
+    WHERE oi.order_number = &order),
 cte2
 AS(
     SELECT  DISTINCT(oi.article_id),
@@ -81,7 +80,7 @@ AS(
     LEFT OUTER JOIN sound_purchase_client spc ON spc.sound_purchase_id = sp.sound_purchase_id
 )
 SELECT 
-    SUM(NVL(c5.result, 0))"FINALL AMOUNT TO PAY"
+    SUM(c5.result)"FINALL AMOUNT TO PAY"
 FROM cte5 c5;
 
 Prompt
@@ -107,7 +106,7 @@ SET amount = CASE
                             SELECT pi.quantity, pi.order_number, pi.article_id
                             FROM order_item oi    
                             LEFT OUTER JOIN orders o ON TO_CHAR(o.order_date, 'DD-Month-YYYY') = TO_CHAR(SYSDATE, 'DD-Month-YYYY') AND o.order_number = oi.order_number
-                            RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id AND pi.item_id = oi.item_id
+                            RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id
                             WHERE oi.order_number = &order),
                         cte2
                         AS(
@@ -165,7 +164,7 @@ SET amount = CASE
                             SELECT pi.quantity, pi.order_number, pi.article_id
                             FROM order_item oi    
                             LEFT OUTER JOIN orders o ON TO_CHAR(o.order_date, 'DD-Month-YYYY') = TO_CHAR(SYSDATE, 'DD-Month-YYYY') AND o.order_number = oi.order_number
-                            RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id AND pi.item_id = oi.item_id
+                            RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id
                             WHERE oi.order_number = &order),
                         cte2
                         AS(

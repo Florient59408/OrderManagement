@@ -36,7 +36,10 @@ BEGIN
         (SELECT COUNT(item_id) FROM order_item WHERE order_number = &order AND article_id = &article) + 1,
         CASE WHEN '&service_id' = (SELECT service_id FROM article_service WHERE article_id = &article AND service_id = '&service_id') THEN '&service_id'
         ELSE null END);
-    INSERT INTO package_item (order_number, article_id,  item_id, service_id, package_id, quantity) VALUES (&order, &article, (SELECT COUNT(item_id) FROM order_item WHERE order_number = &order AND article_id = &article), '&service_id', &order,  &quantity);
+    INSERT INTO package_item (order_number, article_id,  service_id, package_id, quantity) VALUES (&order, &article, '&service_id', &order,  &quantity);
+    EXCEPTION
+        WHEN DUP_VAL_ON_INDEX THEN
+            UPDATE package_item SET quantity = quantity +  &quantity WHERE order_number = &order AND article_id = &article AND  service_id = '&service_id';
 END;
 /
 
@@ -55,7 +58,7 @@ AS(
     SELECT pi.quantity, pi.order_number, pi.article_id
     FROM order_item oi    
     LEFT OUTER JOIN orders o ON TO_CHAR(o.order_date, 'DD-Month-YYYY') = TO_CHAR(SYSDATE, 'DD-Month-YYYY') AND o.order_number = oi.order_number
-    RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id AND pi.item_id = oi.item_id
+    RIGHT OUTER JOIN package_item pi ON pi.order_number = oi.order_number   AND pi.article_id = oi.article_id
     WHERE oi.order_number = &order),
 cte2
 AS(
